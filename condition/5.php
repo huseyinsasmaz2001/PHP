@@ -46,41 +46,50 @@
 
 <body>
     <?php
-    if (isset($_GET["age"]) && isset($_GET["gender"])) {
-        // Récupère l'âge à partir de la requête GET
+    if (isset($_GET["age"], $_GET["gender"], $_GET["english"])) {
         $age = $_GET["age"];
         $gender = $_GET["gender"];
+        $english = $_GET["english"];
 
-        $sex = "";
-
+        $sex = 'fille';
         if ($gender == 'Man') {
-            $sex = "Monsieur";
-        } else {
-            $sex = 'Madame';
+            $sex = 'garçon';
         }
 
+        $greeting = 'Aloha';
+        if ($english == 'oui') {
+            $greeting = 'Bonjour';
+        }
 
-        // Affiche le message en fonction de l'âge
+        $message = '';
+
         if ($age < 12) {
-            echo "Bonjour, $sex le gamin / la gamine !";
+            $message = "$greeting, $sex !";
         } elseif ($age >= 12 && $age <= 18) {
-            echo "Bonjour $sex l' Adolescent !";
+            $message = "$greeting l'Adolescent!";
         } elseif ($age > 18 && $age <= 115) {
-            echo "Bonjour $sex l' Adulte !";
+            $message = "$greeting l'Adulte!";
         } else {
-            echo "Wow ! Toujours en vie ? Es-tu un $sex robot, comme moi ? Puis-je te serrer dans mes bras ?";
+            $message = "Wow $greeting ! Toujours en vie ? Es-tu un robot, comme moi ? Puis-je te serrer dans mes bras ?";
         }
+
+        echo $message;
     }
     ?>
 
     <form method="get" action="">
         <label for="age">Veuillez saisir votre âge :</label>
         <input type="number" name="age" id="age" required>
+
         <label for="gender">Man<input value="Man" type="radio" name="gender">
             Woman<input value="Woman" type="radio" name="gender">
         </label>
-        <input type="submit" value="Envoyer">
 
+        <label for="english">Oui<input value="oui" type="radio" name="english">
+            Non<input value="non" type="radio" name="english">
+        </label>
+
+        <input type="submit" value="Envoyer">
     </form>
 </body>
 

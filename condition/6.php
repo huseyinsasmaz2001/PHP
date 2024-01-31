@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXO 4</title>
+    <title>Formulaire d'inscription à l'équipe de football</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,41 +46,37 @@
 
 <body>
     <?php
-    if (isset($_GET["age"]) && isset($_GET["gender"])) {
-        // Récupère l'âge à partir de la requête GET
-        $age = $_GET["age"];
-        $gender = $_GET["gender"];
+    
+        if (isset($_POST["age"], $_POST["gender"], $_POST["name"])) {
+            $age = $_POST["age"];
+            $gender = $_POST["gender"];
+            $name = $_POST["name"];
 
-        $sex = "";
-
-        if ($gender == 'Man') {
-            $sex = "Monsieur";
+            if ($age >= 21 && $age <= 40 && $gender == 'female') {
+                echo "Bienvenue dans l'équipe, $name !";
+            } else {
+                echo "Désolé, vous ne répondez pas aux critères pour rejoindre l'équipe.";
+            }
         } else {
-            $sex = 'Madame';
+            echo "Des champs requis sont manquants.";
         }
-
-
-        // Affiche le message en fonction de l'âge
-        if ($age < 12) {
-            echo "Bonjour, $sex le gamin / la gamine !";
-        } elseif ($age >= 12 && $age <= 18) {
-            echo "Bonjour $sex l' Adolescent !";
-        } elseif ($age > 18 && $age <= 115) {
-            echo "Bonjour $sex l' Adulte !";
-        } else {
-            echo "Wow ! Toujours en vie ? Es-tu un $sex robot, comme moi ? Puis-je te serrer dans mes bras ?";
-        }
-    }
+    
     ?>
 
-    <form method="get" action="">
-        <label for="age">Veuillez saisir votre âge :</label>
-        <input type="number" name="age" id="age" required>
-        <label for="gender">Man<input value="Man" type="radio" name="gender">
-            Woman<input value="Woman" type="radio" name="gender">
-        </label>
-        <input type="submit" value="Envoyer">
+    <form method="post" action="">
+        <label for="name">Nom :</label>
+        <input type="text" name="name" id="name" required>
 
+        <label for="age">Âge :</label>
+        <input type="number" name="age" id="age" required>
+
+        <label for="gender">Genre :</label>
+        <select name="gender" id="gender" required>
+            <option value="female">Femme</option>
+            <option value="male">Homme</option>
+        </select>
+
+        <input type="submit" value="Soumettre">
     </form>
 </body>
 
